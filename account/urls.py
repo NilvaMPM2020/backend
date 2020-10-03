@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.urls import path
 
-from account.apis import LoginAPI, ProfileAPI, ServiceAPI
+from account.apis import LoginAPI, ProfileAPI, ServiceListCreateAPI, ServiceRetrieveAPI
 
 urlpatterns = [
     path('login/<int:phone>', LoginAPI.as_view()),
     path('verify/<int:phone>', LoginAPI.as_view()),
     path('profile/', ProfileAPI.as_view()),
-    path('services/', ServiceAPI.as_view()),
+    path('profile/<int:pk>', ProfileAPI.as_view()),
+    path('services/', ServiceListCreateAPI.as_view()),
+    path('service/<int:pk>', ServiceRetrieveAPI.as_view()),
 ]

@@ -157,4 +157,11 @@ error_status = {
         'code': 1003,
         'message': 'کد تایید اشتباه و یا منقضی‌شده است'
     },
+    'not_enough_credit': {
+        'code': 1004,
+        'message': 'شارژ حساب شما برای تهیه این خدمت کافی نیست'
+    },
 }
+
+
+ASOUDE_URL = "asoude://com.example.asoude"

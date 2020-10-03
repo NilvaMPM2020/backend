@@ -10,9 +10,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from MPM2020 import settings
-from MPM2020.settings import redis_instance, KAVENEGAR_API
+from MPM2020.settings import redis_instance, KAVENEGAR_API, ASOUDE_URL
 from MPM2020.utils import get_error_obj
-from account.models import User, Service
+from account.models import User, Service, Round, ConditionSchema
 from account.serializers import UserSerializer, ServiceSerializer
 
 
@@ -31,8 +31,8 @@ class LoginAPI(APIView):
         # for OTP account
         params = {'receptor': phone,
                   'token': '%d' % code,
-                  'type': 'sms', 'template': 'verify'}
-        api.verify_lookup(params)
+                  'type': 'sms', 'template': 'verifyasoude'}
+        api.sms_send(params)
 
     def get(self, request, phone):
         try:
@@ -72,13 +72,33 @@ class ProfileAPI(generics.RetrieveUpdateAPIView):
         if 'pk' not in self.kwargs:
             return self.request.user
         pk = self.kwargs['pk']
-        return self.queryset.filter(pk=pk)
+        return self.queryset.filter(pk=pk).first()
 
 
-class ServiceAPI(generics.ListCreateAPIView):
+class ServiceListCreateAPI(generics.ListCreateAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Service.objects.filter(business=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        validated_data = request.data
+        got_stock = validated_data.pop('got_stock')
+        duration = validated_data.pop('duration')
+        conditions = validated_data.pop('conditions')
+
+        instance = Service.objects.create(**validated_data, business=self.request.user)
+        round = Round.objects.create(got_stock=got_stock, duration=duration, name=validated_data['name'],
+                                     service=instance)
+        for c in conditions:
+            ConditionSchema.objects.create(title=c['title'], description=c['title'], related_round=round)
+        return Response({'status': 'ok', 'link': ASOUDE_URL + '?business=' + str(self.request.user.id)})
+
+
+class ServiceRetrieveAPI(generics.RetrieveUpdateAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    permission_classes = [IsAuthenticated]
+

@@ -17,6 +17,7 @@ class User(AbstractUser):
     name = models.CharField(max_length=64, default='کاربر')
     phone = models.CharField(max_length=11)
     email = models.EmailField(default='')
+    credit = models.IntegerField(default=0)
     avatar = models.ImageField(storage=imgFs, null=True, default=None)
     rate = models.FloatField(default=0)
     enabled = models.BooleanField(default=True)
@@ -43,4 +44,3 @@ class ConditionSchema(models.Model):
     description = models.CharField(max_length=32, default='')
     checked = models.BooleanField(default=False)
     related_round = models.ForeignKey(to='Round', on_delete=models.CASCADE, related_name='conditions')
-

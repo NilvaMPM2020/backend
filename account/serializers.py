@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
-from account.models import User, Service, Round
-from trades.models import Condition
+from account.models import User, Service, Round, ConditionSchema
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -10,7 +9,22 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'name',
-                  'avatar', 'rate', 'phone', 'email', 'user_type')
+                  'avatar', 'rate', 'phone', 'email', 'user_type', 'credit')
+        read_only_fields = ('username', 'phone',)
+
+    def get_avatar(self, obj):
+        if not obj.avatar:
+            return ''
+        return obj.avatar.storage.base_location + '/' + obj.avatar.name
+
+
+class LeanUserSerializer(serializers.ModelSerializer):
+    avatar = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'name',
+                  'avatar', 'rate', 'user_type')
         read_only_fields = ('username', 'phone',)
 
     def get_avatar(self, obj):
@@ -21,7 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ConditionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Condition
+        model = ConditionSchema
         fields = ('id', 'title', 'description', 'checked')
 
 
@@ -39,6 +53,7 @@ class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
         fields = ('id', 'name', 'avatar', 'description', 'rounds')
+        read_only_fields = ('rounds', 'id', 'avatar', 'description')
 
 
 class LeanServiceSerializer(serializers.ModelSerializer):

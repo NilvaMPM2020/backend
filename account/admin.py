@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from account.models import User, Service, Round
+from account.models import User, Service, Round, ConditionSchema
 from trades.models import Condition
 
 
@@ -20,6 +20,6 @@ class RoundAdmin(admin.ModelAdmin):
     list_display = ('name', 'duration', 'service', 'given_stock', 'got_stock')
 
 
-@admin.register(Condition)
+@admin.register(ConditionSchema)
 class ConditionAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'checked', 'related_round')
