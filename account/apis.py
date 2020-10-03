@@ -34,7 +34,7 @@ class LoginAPI(APIView):
                   'type': 'sms', 'template': 'verify'}
         api.verify_lookup(params)
 
-    def get(self, request, phone):
+    def post(self, request, phone):
         try:
             code = LoginAPI.generate_verification_code()
             redis_instance.setex(phone, 90, code)
@@ -45,7 +45,7 @@ class LoginAPI(APIView):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def post(self, request, phone):
-        if 'code' not in request.data:
+        if 'code' not in request.data or 'type' not in request.data:
             return Response(get_error_obj(settings.error_status['auth_fields_defect']),
                             status=status.HTTP_400_BAD_REQUEST)
         stored_code = redis_instance.get(phone)
@@ -53,7 +53,7 @@ class LoginAPI(APIView):
         if stored_code and int(stored_code) == request.data['code']:
             user = User.objects.filter(phone=phone).first()
             if not user:
-                user = User(username=phone, phone=phone)
+                user = User(username=phone, phone=phone, user_type=request.data['type'])
                 user.save()
             token, _ = Token.objects.get_or_create(user=user)
             user_serialized = UserSerializer(user)
