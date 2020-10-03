@@ -31,7 +31,7 @@ class LoginAPI(APIView):
         # for OTP account
         params = {'receptor': phone,
                   'token': '%d' % code,
-                  'type': 'sms', 'template': 'verifyasoude'}
+                  'type': 'sms', 'template': 'verify'}
         api.verify_lookup(params)
 
     def get(self, request, phone):
