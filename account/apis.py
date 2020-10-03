@@ -31,10 +31,10 @@ class LoginAPI(APIView):
         # for OTP account
         params = {'receptor': phone,
                   'token': '%d' % code,
-                  'type': 'sms', 'template': 'verify'}
+                  'type': 'sms', 'template': 'verifyasoude'}
         api.verify_lookup(params)
 
-    def post(self, request, phone):
+    def get(self, request, phone):
         try:
             code = LoginAPI.generate_verification_code()
             redis_instance.setex(phone, 90, code)
