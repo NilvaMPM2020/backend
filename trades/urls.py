@@ -16,5 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from trades.apis import TradeAPI
+
 urlpatterns = [
+    path('trades/', TradeAPI.as_view()),
 ]

@@ -15,11 +15,11 @@ class Step(models.Model):
     duration = models.IntegerField(default=24)
     given_stock = models.CharField(max_length=64, default='')
     got_stock = models.CharField(max_length=64, default='')
-    trade = models.ForeignKey(to='Trade', on_delete=models.CASCADE)
+    trade = models.ForeignKey(to='Trade', on_delete=models.CASCADE, related_name='steps')
 
 
 class Condition(models.Model):
     title = models.CharField(max_length=32, default='')
     description = models.CharField(max_length=32, default='')
     checked = models.BooleanField(default=False)
-    related_round = models.ForeignKey(to='Step', on_delete=models.CASCADE)
+    related_round = models.ForeignKey(to='Step', on_delete=models.CASCADE, related_name='conditions')

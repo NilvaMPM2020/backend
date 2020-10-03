@@ -35,12 +35,12 @@ class Round(models.Model):
     duration = models.IntegerField(default=24)
     given_stock = models.CharField(max_length=64, default='')
     got_stock = models.CharField(max_length=64, default='')
-    service = models.ForeignKey(to='Service', on_delete=models.CASCADE)
+    service = models.ForeignKey(to='Service', on_delete=models.CASCADE, related_name='rounds')
 
 
 class ConditionSchema(models.Model):
     title = models.CharField(max_length=32, default='')
     description = models.CharField(max_length=32, default='')
     checked = models.BooleanField(default=False)
-    related_round = models.ForeignKey(to='Round', on_delete=models.CASCADE)
+    related_round = models.ForeignKey(to='Round', on_delete=models.CASCADE, related_name='conditions')
 

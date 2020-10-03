@@ -3,17 +3,17 @@ import random
 
 from kavenegar import KavenegarAPI
 from pytz.exceptions import Error
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from MPM2020 import settings
 from MPM2020.settings import redis_instance, KAVENEGAR_API
 from MPM2020.utils import get_error_obj
-from account.models import User
-from account.serializers import UserSerializer
+from account.models import User, Service
+from account.serializers import UserSerializer, ServiceSerializer
 
 
 class LoginAPI(APIView):
@@ -22,7 +22,7 @@ class LoginAPI(APIView):
 
     @staticmethod
     def generate_verification_code():
-        return random.randint(10 ** 6, 10 ** 7)
+        return random.randint(10 ** 5, 10 ** 6)
 
     @staticmethod
     def send_sms(phone, code):
@@ -61,3 +61,24 @@ class LoginAPI(APIView):
         else:
             return Response(get_error_obj(settings.error_status['verification_failure']),
                             status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileAPI(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        if 'pk' not in self.kwargs:
+            return self.request.user
+        pk = self.kwargs['pk']
+        return self.queryset.filter(pk=pk)
+
+
+class ServiceAPI(generics.ListCreateAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Service.objects.filter(business=self.request.user)
