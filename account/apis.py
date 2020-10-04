@@ -10,8 +10,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from MPM2020 import settings
-from MPM2020.settings import redis_instance, KAVENEGAR_API, ASOUDE_URL
-from MPM2020.utils import get_error_obj
+from MPM2020.settings import redis_instance, KAVENEGAR_API, ASOUDE_URL, REDIS_HOST, REDIS_PORT
+from MPM2020.utils import get_error_obj, init_redis
 from account.models import User, Service, Round, ConditionSchema
 from account.serializers import UserSerializer, ServiceSerializer
 
@@ -50,7 +50,7 @@ class LoginAPI(APIView):
                             status=status.HTTP_400_BAD_REQUEST)
         stored_code = redis_instance.get(phone)
 
-        if stored_code and int(stored_code) == request.data['code']:
+        if int(stored_code) == int(request.data['code']):
             user = User.objects.filter(phone=phone).first()
             if not user:
                 user = User(username=phone, phone=phone, user_type=request.data['type'])

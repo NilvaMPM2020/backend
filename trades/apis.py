@@ -22,7 +22,7 @@ class TradeAPI(generics.ListCreateAPIView):
         if self.request.user.user_type == 1:
             return self.queryset.filter(service__business=self.request.user)
         else:
-            return self.queryset.filter(parties__in=[self.request.user])
+            return self.queryset.filter(parties__username=self.request.user.username)
 
     def create(self, request, *args, **kwargs):
         data = request.data
