@@ -90,11 +90,14 @@ class ServiceListCreateAPI(generics.ListCreateAPIView):
         conditions = validated_data.pop('conditions')
 
         instance = Service.objects.create(**validated_data, business=self.request.user)
+        deep_link = ASOUDE_URL + '?business=' + str(instance.pk)
+        instance.link = deep_link
+        instance.save()
         round = Round.objects.create(got_stock=got_stock, duration=duration, name=validated_data['name'],
                                      service=instance)
         for c in conditions:
             ConditionSchema.objects.create(title=c['title'], description=c['title'], related_round=round)
-        return Response({'status': 'ok', 'link': ASOUDE_URL + '?business=' + str(self.request.user.id)})
+        return Response({'status': 'ok', 'link': deep_link})
 
 
 class ServiceRetrieveAPI(generics.RetrieveUpdateAPIView):

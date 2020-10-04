@@ -51,12 +51,16 @@ class CancelAPI(APIView):
     def post(self, request, trade_id):
         if request.user.user_type == 0:
             reasons = request.data['reasons']
+            description = request.data['description']
             trade = Trade.objects.filter(pk=trade_id).first()
             for reason in reasons:
                 condition = Condition.objects.filter(trade=trade, pk=reason).first()
                 condition.checked = True
                 condition.save()
             trade.status = Trade.StatusChoices.WAITING_FOR_CANCELLATION_APPROVAL
+            related_step = trade.steps.all()[0]
+            related_step.description_client = description
+            related_step.save()
             trade.save()
             return Response({'status': 'ok'})
 
@@ -73,12 +77,15 @@ class CancelAPI(APIView):
                         break
             else:
                 trade.status = Trade.StatusChoices.JUDGEMENT
+                related_step = trade.steps.all()[0]
+                related_step.judgement_description_business = request.data['description']
+                related_step.save()
             trade.save()
             return Response({'status': 'ok'})
 
 
 class JudgeAPI(APIView):
-    authentication_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def _finalize_decision(self, trade):
         vote = 0
@@ -105,6 +112,9 @@ class JudgeAPI(APIView):
         return Response({'status': 'ok'})
 
     def get(self, request):
-        count = Trade.objects.filter(status=Trade.StatusChoices.JUDGEMENT).count()
-        trade = Trade.objects.filter(status=Trade.StatusChoices.JUDGEMENT)[randint(0, count)]
-        return Response(TradeSerializer(trade).data)
+        try:
+            count = Trade.objects.filter(status=Trade.StatusChoices.JUDGEMENT).count()
+            trade = Trade.objects.filter(status=Trade.StatusChoices.JUDGEMENT)[randint(0, count)]
+            return Response(TradeSerializer(trade).data)
+        except:
+            return Response(get_error_obj(error_status['no_trade_for_judge_found']))

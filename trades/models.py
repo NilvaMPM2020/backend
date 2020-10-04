@@ -23,6 +23,8 @@ class Step(models.Model):
     duration = models.IntegerField(default=24)
     given_stock = models.CharField(max_length=64, default='')
     got_stock = models.CharField(max_length=64, default='')
+    judgement_description_business = models.CharField(max_length=256, default='')
+    description_client = models.CharField(max_length=256, default='')
     trade = models.ForeignKey(to='Trade', on_delete=models.CASCADE, related_name='steps')
 
 

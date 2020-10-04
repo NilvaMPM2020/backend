@@ -16,9 +16,9 @@ class User(AbstractUser):
 
     name = models.CharField(max_length=64, default='کاربر')
     phone = models.CharField(max_length=11)
-    email = models.EmailField(default='')
+    email = models.EmailField(default='user@mail.com')
     credit = models.IntegerField(default=0)
-    avatar = models.ImageField(storage=imgFs, null=True, default=None)
+    avatar = models.ImageField(storage=imgFs, null=True, default='avatar.png')
     rate = models.FloatField(default=0)
     enabled = models.BooleanField(default=True)
     user_type = models.IntegerField(choices=TypeChoices.choices, default=TypeChoices.REGULAR)
@@ -29,6 +29,7 @@ class Service(models.Model):
     avatar = models.ImageField(storage=imgFs, null=True, default=None)
     description = models.CharField(max_length=256, default='')
     business = models.ForeignKey(to='User', on_delete=models.CASCADE)
+    link = models.CharField(max_length=64, default='')
 
 
 class Round(models.Model):
