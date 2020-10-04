@@ -81,7 +81,20 @@ class JudgeAPI(APIView):
     authentication_classes = [IsAuthenticated]
 
     def _finalize_decision(self, trade):
-        pass
+        vote = 0
+        for judge in trade.judgements.all():
+            vote += judge.decision
+        if vote < 0:
+            trade.status = Trade.StatusChoices.ACTIVE
+            trade.save()
+        else:
+            trade.status = Trade.StatusChoices.ACTIVE
+            price = int(trade.steps.all()[0].got_stock)
+            for party in trade.parties.all():
+                if party.pk is not self.request.user.pk:
+                    party.credit += price
+                    party.save()
+                    break
 
     def post(self, request, trade_id):
         decision = request.data['decision']

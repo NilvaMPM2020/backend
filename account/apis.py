@@ -32,7 +32,7 @@ class LoginAPI(APIView):
         params = {'receptor': phone,
                   'token': '%d' % code,
                   'type': 'sms', 'template': 'verifyasoude'}
-        api.sms_send(params)
+        api.verify_lookup(params)
 
     def get(self, request, phone):
         try:

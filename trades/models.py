@@ -35,8 +35,8 @@ class Condition(models.Model):
 
 class Judge(models.Model):
     class DecisionChoices(models.IntegerChoices):
-        FIRST_PARTY = 0, _('first party')
-        SECOND_PARTY = 1, _('second party')
+        BUSINESS_PARTY = -1, _('business party')
+        CLIENT_PARTY = 1, _('client party')
 
     trade = models.ForeignKey(to='Trade', on_delete=models.CASCADE, related_name='judgements')
     judge = models.ForeignKey(to=User, on_delete=models.CASCADE)
