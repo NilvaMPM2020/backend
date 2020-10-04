@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from account.serializers import LeanServiceSerializer
+from account.serializers import LeanServiceSerializer, LeanUserSerializer
 from trades.models import Condition, Step, Trade
 
 
@@ -21,7 +21,7 @@ class StepSerializer(serializers.ModelSerializer):
 
 class TradeSerializer(serializers.ModelSerializer):
     steps = StepSerializer(many=True)
-    parties = LeanServiceSerializer(many=True)
+    parties = LeanUserSerializer(many=True)
     service = LeanServiceSerializer()
 
     class Meta:
