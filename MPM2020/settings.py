@@ -31,6 +31,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+BASE_URL = 'http://130.185.123.55:8000/'
+
 # Application definition
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -164,6 +166,10 @@ error_status = {
     'no_trade_for_judge_found': {
         'code': 1005,
         'message': 'هیچ معامله‌ای برای داوری یافت نشد'
+    },
+    'access_denied': {
+        'code': 1006,
+        'message': 'شما دسترسی به این عملیات را ندارید'
     },
 }
 

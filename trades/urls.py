@@ -22,7 +22,8 @@ from trades.apis import TradeAPI, CancelAPI, JudgeAPI
 urlpatterns = [
                   path('trades/', TradeAPI.as_view()),
                   path('cancell/', CancelAPI.as_view()),
-                  path('judge/', JudgeAPI.as_view())
+                  path('judge/', JudgeAPI.as_view()),
+                  path('judge/<int:trade_id>', JudgeAPI.as_view()),
               ] + static(settings.STATIC_URL,
                          document_root=
                          settings.STATIC_ROOT)

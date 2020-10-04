@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from account.serializers import LeanServiceSerializer
-from trades.models import Condition, Step, Trade, Judge
+from trades.models import Condition, Step, Trade
 
 
 class ConditionSerializer(serializers.ModelSerializer):
@@ -15,7 +15,8 @@ class StepSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Step
-        fields = ('id', 'name', 'created_date', 'duration', 'given_stock', 'got_stock', 'conditions')
+        fields = ('id', 'name', 'created_date', 'duration', 'given_stock', 'got_stock', 'conditions',
+                  'judgement_description_business', 'description_client')
 
 
 class TradeSerializer(serializers.ModelSerializer):
@@ -26,5 +27,3 @@ class TradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trade
         fields = ('id', 'parties', 'service', 'steps', 'status')
-
-

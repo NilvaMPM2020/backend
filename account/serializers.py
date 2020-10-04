@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from MPM2020.settings import BASE_URL
 from account.models import User, Service, Round, ConditionSchema
 from trades.models import Trade
 
@@ -19,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
     def get_avatar(self, obj):
         if not obj.avatar:
             return ''
-        return 'http://130.185.123.55:8000/' + obj.avatar.storage.base_location + '/' + obj.avatar.name
+        return BASE_URL + obj.avatar.storage.base_location + '/' + obj.avatar.name
 
     def get_trade_count(self, obj):
         return Trade.objects.filter(parties__username=obj.username).count()
@@ -59,11 +60,11 @@ class ServiceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Service
-        fields = ('id', 'name', 'avatar', 'description', 'rounds')
+        fields = ('id', 'name', 'avatar', 'description', 'rounds', 'link')
         read_only_fields = ('rounds', 'id', 'avatar', 'description')
 
 
 class LeanServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
-        fields = ('id', 'name', 'avatar', 'description')
+        fields = ('id', 'name', 'avatar', 'description', 'link')

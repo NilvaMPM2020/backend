@@ -19,16 +19,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75ff564d-63bf-4fe1-90d2-8404b32a56c2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/migrations/0004_auto_20201003_1354.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/account/migrations/0005_user_credit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trades/migrations/0002_auto_20201003_1405.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/trades/migrations/0004_judge.py" afterDir="false" />
+    <list default="true" id="75ff564d-63bf-4fe1-90d2-8404b32a56c2" name="Default Changelist" comment="fixed trade list">
+      <change afterPath="$PROJECT_DIR$/account/migrations/0006_auto_20201004_1642.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/migrations/0007_auto_20201004_1653.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trades/migrations/0005_auto_20201004_1642.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trades/migrations/0006_auto_20201004_1647.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/apis.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/apis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MPM2020/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/MPM2020/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trades/apis.py" beforeDir="false" afterPath="$PROJECT_DIR$/trades/apis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trades/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/trades/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trades/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/trades/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trades/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/trades/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +99,9 @@
       <option name="presentableId" value="Default" />
       <updated>1601715798646</updated>
       <workItem from="1601715833043" duration="25235000" />
-      <workItem from="1601787348264" duration="4577000" />
+      <workItem from="1601787348264" duration="13580000" />
+      <workItem from="1601832757849" duration="976000" />
+      <workItem from="1601841138383" duration="1593000" />
     </task>
     <task id="LOCAL-00001" summary="fixed login">
       <created>1601728784680</created>
@@ -136,7 +138,35 @@
       <option name="project" value="LOCAL" />
       <updated>1601742047859</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fixed trade list">
+      <created>1601803668507</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1601803668507</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added trade count to profile">
+      <created>1601808371463</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1601808371463</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added base url to pictures">
+      <created>1601808473110</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1601808473110</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fixed some bugs">
+      <created>1601830533361</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1601830533361</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -159,13 +189,17 @@
     <MESSAGE value="revert kavenegar to old template" />
     <MESSAGE value="added profile, update profile, get service list, get trade list" />
     <MESSAGE value="added services (list, get, create), added trades (list, get, create), added cancellation, added judgements" />
-    <option name="LAST_COMMIT_MESSAGE" value="added services (list, get, create), added trades (list, get, create), added cancellation, added judgements" />
+    <MESSAGE value="fixed trade list" />
+    <MESSAGE value="added trade count to profile" />
+    <MESSAGE value="added base url to pictures" />
+    <MESSAGE value="fixed some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed some bugs" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="476" y="21" width="957" height="1031" key="CommitChangelistDialog2" timestamp="1601742047691">
+    <state x="476" y="21" width="957" height="1031" key="CommitChangelistDialog2" timestamp="1601830532835">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="476" y="21" width="957" height="1031" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1601742047691" />
+    <state x="476" y="21" width="957" height="1031" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1601830532835" />
     <state width="939" height="618" key="DebuggerActiveHint" timestamp="1601726462676">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -174,42 +208,42 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="743" y="297" width="424" height="479" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1601716097250" />
-    <state width="1874" height="344" key="GridCell.Tab.0.bottom" timestamp="1601800221157">
+    <state width="1874" height="344" key="GridCell.Tab.0.bottom" timestamp="1601831732385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="344" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1601800221157" />
-    <state width="1874" height="344" key="GridCell.Tab.0.center" timestamp="1601800221156">
+    <state width="1874" height="344" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1601831732385" />
+    <state width="1874" height="344" key="GridCell.Tab.0.center" timestamp="1601831732385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="344" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1601800221156" />
-    <state width="1874" height="344" key="GridCell.Tab.0.left" timestamp="1601800221156">
+    <state width="1874" height="344" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1601831732385" />
+    <state width="1874" height="344" key="GridCell.Tab.0.left" timestamp="1601831732385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="344" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1601800221156" />
-    <state width="1874" height="344" key="GridCell.Tab.0.right" timestamp="1601800221157">
+    <state width="1874" height="344" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1601831732385" />
+    <state width="1874" height="344" key="GridCell.Tab.0.right" timestamp="1601831732385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="344" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1601800221157" />
-    <state width="1874" height="344" key="GridCell.Tab.1.bottom" timestamp="1601800221157">
+    <state width="1874" height="344" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1601831732385" />
+    <state width="1874" height="344" key="GridCell.Tab.1.bottom" timestamp="1601831732385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="344" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1601800221157" />
-    <state width="1874" height="344" key="GridCell.Tab.1.center" timestamp="1601800221157">
+    <state width="1874" height="344" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1601831732385" />
+    <state width="1874" height="344" key="GridCell.Tab.1.center" timestamp="1601831732385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="344" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1601800221157" />
-    <state width="1874" height="344" key="GridCell.Tab.1.left" timestamp="1601800221157">
+    <state width="1874" height="344" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1601831732385" />
+    <state width="1874" height="344" key="GridCell.Tab.1.left" timestamp="1601831732385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="344" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1601800221157" />
-    <state width="1874" height="344" key="GridCell.Tab.1.right" timestamp="1601800221157">
+    <state width="1874" height="344" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1601831732385" />
+    <state width="1874" height="344" key="GridCell.Tab.1.right" timestamp="1601831732385">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="344" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1601800221157" />
-    <state x="555" y="271" width="800" height="531" key="Vcs.Push.Dialog.v2" timestamp="1601742049666">
+    <state width="1874" height="344" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1601831732385" />
+    <state x="555" y="271" width="800" height="531" key="Vcs.Push.Dialog.v2" timestamp="1601830534436">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="555" y="271" width="800" height="531" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1601742049666" />
+    <state x="555" y="271" width="800" height="531" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1601830534436" />
     <state width="960" height="540" key="XDebugger.FullValuePopup" timestamp="1601800053005">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

@@ -103,18 +103,25 @@ class JudgeAPI(APIView):
                     party.save()
                     break
 
-    def post(self, request, trade_id):
-        decision = request.data['decision']
-        trade = Trade.objects.filter(pk=trade_id).first()
-        Judge.objects.create(trade=trade, judge=request.user, decision=decision)
-        if len(trade.judgements.all()) > 2:
-            self._finalize_decision(trade)
-        return Response({'status': 'ok'})
-
-    def get(self, request):
+    def _get_random_trade_for_judgement(self):
         try:
+            if self.request.user.user_type == 1:
+                return Response(get_error_obj(error_status['access_denied']), status=status.HTTP_401_UNAUTHORIZED)
             count = Trade.objects.filter(status=Trade.StatusChoices.JUDGEMENT).count()
             trade = Trade.objects.filter(status=Trade.StatusChoices.JUDGEMENT)[randint(0, count)]
             return Response(TradeSerializer(trade).data)
         except:
-            return Response(get_error_obj(error_status['no_trade_for_judge_found']))
+            return Response(get_error_obj(error_status['no_trade_for_judge_found']), status=status.HTTP_204_NO_CONTENT)
+
+    def post(self, request, trade_id):
+        if self.request.user.user_type == 1:
+            return Response(get_error_obj(error_status['access_denied']), status=status.HTTP_401_UNAUTHORIZED)
+        decision = request.data['decision']
+        trade = Trade.objects.filter(pk=trade_id).first()
+        Judge.objects.create(trade=trade, judge=request.user, decision=decision)
+        if len(trade.judgements.all()) > 4:
+            self._finalize_decision(trade)
+        return self._get_random_trade_for_judgement()
+
+    def get(self, request):
+        return self._get_random_trade_for_judgement()
