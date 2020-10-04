@@ -38,7 +38,7 @@ class LeanUserSerializer(serializers.ModelSerializer):
     def get_avatar(self, obj):
         if not obj.avatar:
             return ''
-        return obj.avatar.storage.base_location + '/' + obj.avatar.name
+        return BASE_URL + obj.avatar.storage.base_location + '/' + obj.avatar.name
 
 
 class ConditionSerializer(serializers.ModelSerializer):
@@ -57,11 +57,17 @@ class RoundSerializer(serializers.ModelSerializer):
 
 class ServiceSerializer(serializers.ModelSerializer):
     rounds = RoundSerializer(many=True)
+    avatar = serializers.SerializerMethodField
 
     class Meta:
         model = Service
         fields = ('id', 'name', 'avatar', 'description', 'rounds', 'link')
         read_only_fields = ('rounds', 'id', 'avatar', 'description')
+
+    def get_avatar(self, obj):
+        if not obj.avatar:
+            return ''
+        return BASE_URL + obj.avatar.storage.base_location + '/' + obj.avatar.name
 
 
 class LeanServiceSerializer(serializers.ModelSerializer):
