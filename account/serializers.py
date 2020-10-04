@@ -1,21 +1,28 @@
 from rest_framework import serializers
 
 from account.models import User, Service, Round, ConditionSchema
+from trades.models import Trade
 
 
 class UserSerializer(serializers.ModelSerializer):
     avatar = serializers.SerializerMethodField(read_only=True)
+    trade_count = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = User
         fields = ('id', 'username', 'name',
-                  'avatar', 'rate', 'phone', 'email', 'user_type', 'credit')
-        read_only_fields = ('username', 'phone',)
+                  'avatar', 'rate', 'phone',
+                  'email', 'user_type', 'credit',
+                  'trade_count')
+        read_only_fields = ('username', 'phone', 'trade_count')
 
     def get_avatar(self, obj):
         if not obj.avatar:
             return ''
-        return obj.avatar.storage.base_location + '/' + obj.avatar.name
+        return 'http://130.185.123.55/' + obj.avatar.storage.base_location + '/' + obj.avatar.name
+
+    def get_trade_count(self, obj):
+        return Trade.objects.filter(parties__username=obj.username).count()
 
 
 class LeanUserSerializer(serializers.ModelSerializer):
