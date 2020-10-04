@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
     def get_avatar(self, obj):
         if not obj.avatar:
             return ''
-        return 'http://130.185.123.55/' + obj.avatar.storage.base_location + '/' + obj.avatar.name
+        return 'http://130.185.123.55:8000/' + obj.avatar.storage.base_location + '/' + obj.avatar.name
 
     def get_trade_count(self, obj):
         return Trade.objects.filter(parties__username=obj.username).count()
