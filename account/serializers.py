@@ -57,7 +57,7 @@ class RoundSerializer(serializers.ModelSerializer):
 
 class ServiceSerializer(serializers.ModelSerializer):
     rounds = RoundSerializer(many=True)
-    avatar = serializers.SerializerMethodField
+    avatar = serializers.SerializerMethodField()
 
     class Meta:
         model = Service
@@ -71,6 +71,13 @@ class ServiceSerializer(serializers.ModelSerializer):
 
 
 class LeanServiceSerializer(serializers.ModelSerializer):
+    avatar = serializers.SerializerMethodField()
+
     class Meta:
         model = Service
         fields = ('id', 'name', 'avatar', 'description', 'link')
+
+    def get_avatar(self, obj):
+        if not obj.avatar:
+            return ''
+        return BASE_URL + obj.avatar.storage.base_location + '/' + obj.avatar.name
